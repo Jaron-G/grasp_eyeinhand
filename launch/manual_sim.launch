@@ -1,0 +1,15 @@
+<launch>
+    <!-- start the robot simulation grasp environment-->
+    <include file="$(find grasp_eyeinhand)/launch/UR_robot_sim.launch"> </include> 
+    
+    <!-- Load grasping submodule services-->
+    <node pkg="detect_pose" type="detect_pose_server.py" name="detect_pose_server"  output="screen" > </node>
+    <node pkg="calc_pose" type="calc_pose_server.py" name="calc_pose_server"  output="screen">  </node>
+    <node pkg="grasp_object" type="grasp_object_server.py" name="grasp_object_server"  output="screen">  </node>
+    <node pkg="grasp_eyeinhand" type="camera_node.py" name="cameranode"  output="screen">  </node>
+    <!-- <include file="$(find halcon_package)/launch/registration.launch"> </include>  -->
+    <!-- <include file="$(find move_robot)/launch/move_robot.launch"> </include>  -->
+    
+    <!-- start robot grasping main process-->
+    <node pkg="grasp_eyeinhand" type="main_process.py" name="Grasping" output="screen"> </node>
+</launch>
