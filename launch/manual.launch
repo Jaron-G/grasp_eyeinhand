@@ -1,0 +1,16 @@
+<launch>
+    <!-- start the robot simulation grasp environment-->
+    <include file="$(find grasp_eyeinhand)/launch/UR_robot.launch"> </include> 
+    
+    <!-- Load grasping submodule services-->
+    <node pkg="detect_pose" type="detect_pose_server.py" name="detect_pose_server"  output="screen" > </node>
+    <node pkg="calc_pose" type="calc_pose_server.py" name="calc_pose_server"  output="screen">  </node>
+    <node pkg="grasp_object" type="real_grasp_object_server.py" name="grasp_object_server"  output="screen">  </node>
+    <node pkg="grasp_eyeinhand" type="camera_node.py" name="cameranode"  output="screen">  </node>
+    <node pkg="grasp_eyeinhand" type="opencamera.py" name="opencamera"  output="screen">  </node>
+
+    <!-- <include file="$(find azure_kinect_ros_driver)/launch/driver.launch"> </include>  -->
+    <!-- start robot grasping main process-->
+    <node pkg="grasp_eyeinhand" type="main_process.py" name="Grasping" output="screen"> </node>
+    <!-- <node pkg="grasp_eyeinhand" type="record.py" name="Grasping" output="screen"> </node> -->
+</launch>

@@ -9,7 +9,7 @@ import time
 
 # 构造参数解析器并解析参数
 ap = argparse.ArgumentParser()
-ap.add_argument("-t", "--type", type=str, default="DICT_ARUCO_ORIGINAL", help="Tpe of ArUCo tag to detect")
+ap.add_argument("-t", "--type", type=str, default="DICT_4X4_50", help="Tpe of ArUCo tag to detect")
 args = vars(ap.parse_args())
 
 # 定义 OpenCV 支持的每个可能的 ArUco 标签的名称

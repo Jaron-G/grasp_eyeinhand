@@ -48,8 +48,8 @@ k4a = PyK4A(
     Config(
         color_resolution=pyk4a.ColorResolution.RES_1080P,
         camera_fps=pyk4a.FPS.FPS_30,
-        depth_mode=pyk4a.DepthMode.NFOV_UNBINNED,
-        synchronized_images_only=True,
+        depth_mode=pyk4a.DepthMode.OFF ,
+        synchronized_images_only=False,
     )
 )
 k4a.start()
@@ -61,10 +61,10 @@ while True:
     frame = np.ascontiguousarray(color_image[:,:,0:3])
     (corners, ids, rejected) = arucodetector.detectMarkers(frame)
     if ids is not None:
-        rvecs, tvecs,_ = cv2.aruco.estimatePoseSingleMarkers(corners[0], 50, cameraMatrix, distCoeffs)
+        rvecs, tvecs,_ = cv2.aruco.estimatePoseSingleMarkers(corners, 50, cameraMatrix, distCoeffs)
         for i in range(len(rvecs)):
             cv2.aruco.drawDetectedMarkers(frame, corners)
-            cv2.drawFrameAxes(frame, cameraMatrix, distCoeffs, rvecs[i, :, :], tvecs[i, :, :], 40)
+            cv2.drawFrameAxes(frame, cameraMatrix, distCoeffs, rvecs[i, :, :], tvecs[i, :, :], 100)
         cv2.putText(frame, "Id: " + str(ids), (10,40), font, 0.5, (0, 0, 255),1,cv2.LINE_AA)
         cv2.putText(frame, "rvec: " + str(rvecs[i, :, :]), (10, 60), font, 0.5, (0, 255, 0), 2, cv2.LINE_AA)
         cv2.putText(frame, "tvec: " + str(tvecs[i, :, :]), (10,80), font, 0.5, (0, 0, 255), 1, cv2.LINE_AA)

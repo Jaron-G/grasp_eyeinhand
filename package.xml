@@ -4,10 +4,8 @@
   <version>0.0.0</version>
   <description>The grasp_eyeinhand package</description>
 
-  <!-- One maintainer tag required, multiple allowed, one person per tag -->
-  <!-- Example:  -->
-  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="robot@todo.todo">robot</maintainer>
+
+  <maintainer email="2205250117@qq.com">robot</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->

@@ -1,16 +1,12 @@
-# Setup Docker
-
-## Build Docker Image
-
-```bash
-bash build.bash
-```
-
-> **Note:**
-> - You can change the name to whatever you like, but remember to update the new name in the bash file.
-
-## Start Docker container
-In current path, run the follwowing command to start the docker container with the name `grasp_control_container`:
-```bash
+aobo@aobo-MS-7D42:~/catkin_ws/src/grasp_eyeinhand$ 下输入
+cd /home/aobo/catkin_ws/src/grasp_eyeinhand/Docker
 bash demo.bash
-```
+
+
+root@aobo-MS-7D42:/catkin_ws# 下输入
+catkin_make
+
+显示100%
+source devel/setup.bash
+
+roslaunch grasp_eyeinhand manual.launch 

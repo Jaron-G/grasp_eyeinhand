@@ -11,5 +11,5 @@
     <!-- <include file="$(find move_robot)/launch/move_robot.launch"> </include>  -->
     
     <!-- start robot grasping main process-->
-    <node pkg="grasp_eyeinhand" type="main_process.py" name="Grasping" output="screen"> </node>
+    <node pkg="grasp_eyeinhand" type="main_process_sim.py" name="Grasping" output="screen"> </node>
 </launch>

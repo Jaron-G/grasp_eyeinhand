@@ -4,16 +4,11 @@ import sys
 import moveit_commander
 import tkinter as tk
 import numpy as np
-from real_gripper_control import GripperControl
-import tkinter.messagebox
 
 from detect_pose.srv import DetectPose
 from calc_pose.srv import CalcPose
 from grasp_object.srv import GraspObject
 
-
-
-gripper = GripperControl()
 DEBUG = False
 
 def calc_pose_client():
@@ -54,7 +49,6 @@ class Application(tk.Frame):
         self.pose_up = None
         self.pose_g = None
         self.rotation_matrix = None
-        self.gripper_width = 0
 
     def create_widgets(self):
         self.frame1 = tk.Frame(self)
@@ -69,21 +63,18 @@ class Application(tk.Frame):
         self.grasp_object_button.pack(pady=5)
         # self.collision_detect_button = tk.Button(self.frame1, text="Perform collision detect", command=self.press_collision_detect_button, width=28)
         # self.collision_detect_button.pack(pady=5)
-        self.open_gripper_button = tk.Button(self.frame1, text="Open Gripper To Width", command=self.press_open_gripper_button, width=28)
-        self.open_gripper_button.pack(pady=5)
+        # self.move_robot_button = tk.Button(self.frame1, text="Start grasp", command=self.press_move_robot_button, width=28)
+        # self.move_robot_button.pack(pady=5)
         self.quit = tk.Button(self.frame1, text="QUIT", fg="red", command=self.master.destroy, bd=3, width=28)
         self.quit.pack(pady=5)
 
         self.photo = tk.PhotoImage(file="/catkin_ws/src/grasp_eyeinhand/images/robot.png")
-        self.photo_label = tk.Label(self.frame2,justify = tk.LEFT,image = self.photo).grid(row = 0,column = 0)
+        self.photo_label = tk.Label(self.frame2,justify = tk.LEFT,image = self.photo)
+        self.photo_label.pack(side="right")
 
         self.message_var = tk.StringVar(self,value='Please click the buttons in order !')  # 储存文字的类
         self.message_box = tk.Label(self.frame1, textvariable=self.message_var, bg='lightblue',width=28)
         self.message_box.pack(pady=5)
-        
-        self.gripper_width_label = tk.Label(self.frame2,text = 'gripper width').grid(row = 1,column = 0)
-        self.entry0 = tk.Entry(self.frame2)
-        self.entry0.grid(row = 1,column = 1,padx = 2, pady = 5)
 
         self.debug_var = tk.IntVar()
         self.debug_checkbox = tk.Checkbutton(self, text="Debug Mode", variable=self.debug_var, command=self.debug_check)
@@ -116,22 +107,6 @@ class Application(tk.Frame):
         response = grasp_object_client()
         rospy.loginfo("grasp_object completed!")
         self.message_var.set("grasp_object completed!")
-        
-        
-    def press_open_gripper_button(self):
-        if  0 < int(self.entry0.get()) < 85 :
-            self.gripper_width = int(self.entry0.get())
-            width = -255/85*self.gripper_width +255
-            gripper.control_gripper(width)# gripper.open()
-            self.message_var.set("open gripper completed!")  
-            return True
-        else:
-            print('Please enter 0-85')
-            self.entry0.delete(0)
-            tkinter.messagebox.showwarning(
-                title="Warning", message="Gripper width should be 0-85 !"
-            )
-            return False    
 
     # def press_registration_button(self):
     #     rospy.loginfo("Start perform registration !")
@@ -209,5 +184,6 @@ def main():
     app.mainloop()
 
 if __name__ == '__main__':
+    rospy.init_node('main_process')
     main()
-
+    rospy.spin()

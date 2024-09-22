@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 def detect_pose():
-    path = "/catkin_ws/src/grasp_eyeinhand/images/"
-    image = cv2.imread(path+ "scene.jpg")
+    path = "/home/aobo/catkin_ws/src/grasp_eyeinhand/images/"
+    image = cv2.imread(path+ "scene.png")
 
     arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
     arucoParams = cv2.aruco.DetectorParameters()
