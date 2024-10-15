@@ -1,5 +1,5 @@
 /.vscode
 src/__pycache__/
 images/
-images/matrix_g2B.npy
-images/rvecs.npy
+action/
+config/
