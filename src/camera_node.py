@@ -31,7 +31,7 @@ def callback(data):
     distCoeffs = dist[0:5].reshape(1,5)
     if ids is not None:
         cv2.aruco.drawDetectedMarkers(image, corners, ids, (0, 255, 0))
-        rvecs, tvecs,_ = cv2.aruco.estimatePoseSingleMarkers(corners[0], 20, cameraMatrix, distCoeffs)
+        rvecs, tvecs,_ = cv2.aruco.estimatePoseSingleMarkers(corners[0], 60, cameraMatrix, distCoeffs)
         for i in range(len(rvecs)):
             cv2.drawFrameAxes(image, cameraMatrix, distCoeffs, rvecs, tvecs, 40)
         cv2.putText(image, "Id: " + str(ids), (10,40), font, 0.5, (0, 0, 255),1,cv2.LINE_AA)

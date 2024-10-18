@@ -12,16 +12,18 @@ import pyk4a
 from pyk4a import PyK4A, Config
 
 if __name__=="__main__":
-    capture = cv2.VideoCapture(0) # 定义摄像头
+    # capture = cv2.VideoCapture(0) # 定义摄像头
     rospy.init_node('camera_node', anonymous=True) #定义节点
-    image_pub=rospy.Publisher('/image_view/image_raw', Image, queue_size = 1) #定义话题
+    image_pub=rospy.Publisher('/image_view/image_raw', Image, queue_size = 12) #定义话题
 
     k4a = PyK4A(
     Config(
         color_resolution=pyk4a.ColorResolution.RES_720P,
-        camera_fps=pyk4a.FPS.FPS_15,
+        color_format= 3,
+        camera_fps=pyk4a.FPS.FPS_5,
         depth_mode=pyk4a.DepthMode.OFF ,
         synchronized_images_only=False,
+        disable_streaming_indicator=True
         )
     )
     k4a.start()
@@ -46,8 +48,7 @@ if __name__=="__main__":
             image_pub.publish(ros_frame) #发布消息
             # end = time.time()  
             # print("cost time:", end-start ) # 看一下每一帧的执行时间，从而确定合适的rate
-            rate = rospy.Rate(25) # 10hz 
+            rate = rospy.Rate(10) # 10hz 
 
-    capture.release()
     cv2.destroyAllWindows() 
     print("quit successfully!")
